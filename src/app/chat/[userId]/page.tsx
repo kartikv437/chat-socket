@@ -1,16 +1,22 @@
-import ChatClient from "./ChatClient";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import jwt from "jsonwebtoken";
+import { AuthProvider } from "@/providers/AuthProvider";
+import ChatClient from "./ChatClient";
 
 export default async function ChatPage({
   params,
 }: {
   params: Promise<{ userId: string }>;
 }) {
-  const { userId } = await params; // ✅ await params
-
+  const { userId } = await params;
   const token = (await cookies()).get("token")?.value;
-  if (!token) redirect("/login");
+  if (!token) throw new Error("Unauthorized");
 
-  return <ChatClient receiverId={userId} />;
+  const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
+
+  return (
+    <AuthProvider token={token} myUserId={decoded.userId}>
+      <ChatClient receiverId={userId} />
+    </AuthProvider>
+  );
 }

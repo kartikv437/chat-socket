@@ -7,8 +7,6 @@ import dotenv from "dotenv";
 dotenv.config({ path: ".env" });
 import fs from "fs";
 import { parse } from "cookie";
-console.log(fs.existsSync("../src/models/Message.js"));
-
 
 const url = process.env.MONGODB_URL;
 if (!url) {

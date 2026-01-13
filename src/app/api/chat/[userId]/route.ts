@@ -2,15 +2,13 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { connectMongo } from "@/lib/mongodb";
-import { Message } from "@/models/Message";
+import Message from "@/models/Message";
 
 export async function GET(
   context: { params: { userId: string } }
   
 ) {
   try {
-      console.log('test');
-
     await connectMongo();
 
     // ✅ await params
