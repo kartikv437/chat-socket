@@ -69,7 +69,7 @@ export default function Home() {
 
                         <div className="w-full grid grid-cols-1 gap-4">
                             <button type="submit" disabled={!email || !password} className="btn btn-primary">Login</button>
-                            <button type="button" className="btn btn-secondary" onClick={signUpUser}>Sign Up</button>
+                            <button type="button" disabled={!email || !password} className="btn btn-secondary" onClick={signUpUser}>Sign Up</button>
                         </div>
                     </form>
 
